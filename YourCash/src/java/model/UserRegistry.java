@@ -6,13 +6,15 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  *
  * @author oscar
  */
-public class UserRegistry {
+public class UserRegistry implements Iterable{
     
     private List<User> userList = new ArrayList();
     
@@ -20,14 +22,30 @@ public class UserRegistry {
     
     }
     
-    public boolean register(){
-         
+    public boolean register(User newUser){
+        
+        
+        if(findUser(newUser.getUsername())==null){
+            iterator().add(newUser);
+            return true;
+        }
         return false;
+
     }
     
-    public User find(){
+    public User findUser(String username){
         
+        while(iterator().hasNext()){
+            User user = iterator().next();
+            if(user.getUsername().equals(username))
+                return user;
+        }
         return null;
+    }
+    
+    @Override
+    public ListIterator<User> iterator(){
+        return userList.listIterator();
     }
     
 }
