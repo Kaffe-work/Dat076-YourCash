@@ -11,15 +11,24 @@ package model;
  */
 public class User {
     
-    
+    private String username;
     private String name;
     private String password;
     private String id;
     
-    public User(String name, String id, String password){
+    public User(String username, String name, String id, String password){
+        this.username = username;
         this.name = name;
         this.password = password;
         this.id = id;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getName() {
