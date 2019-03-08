@@ -6,11 +6,15 @@
 package com.mycompany.yourcashv2;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -19,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +39,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Expense.findByTimedate", query = "SELECT e FROM Expense e WHERE e.timedate = :timedate")
     , @NamedQuery(name = "Expense.findByCategory", query = "SELECT e FROM Expense e WHERE e.category = :category")})
 public class Expense implements Serializable {
+
+    @JoinTable(name = "user_expenses", joinColumns = {
+        @JoinColumn(name = "id", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "username", referencedColumnName = "username")})
+    @ManyToMany
+    private Collection<Appuser> appuserCollection;
 
     @Size(max = 2147483647)
     @Column(name = "description")
@@ -126,6 +137,15 @@ public class Expense implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @XmlTransient
+    public Collection<Appuser> getAppuserCollection() {
+        return appuserCollection;
+    }
+
+    public void setAppuserCollection(Collection<Appuser> appuserCollection) {
+        this.appuserCollection = appuserCollection;
     }
     
 }

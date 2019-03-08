@@ -20,7 +20,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ExpenseController implements Serializable {
 
-    private Expense current;
+    private Expense expense;
     private DataModel items = null;
     @EJB
     private com.mycompany.yourcashv2.ExpenseFacade ejbFacade;
@@ -31,11 +31,11 @@ public class ExpenseController implements Serializable {
     }
 
     public Expense getSelected() {
-        if (current == null) {
-            current = new Expense();
+        if (expense == null) {
+            expense = new Expense();
             selectedItemIndex = -1;
         }
-        return current;
+        return expense;
     }
 
     private ExpenseFacade getFacade() {
@@ -66,20 +66,20 @@ public class ExpenseController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Expense) getItems().getRowData();
+        expense = (Expense) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Expense();
+        expense = new Expense();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
+            getFacade().create(expense);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ExpenseCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -89,14 +89,14 @@ public class ExpenseController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Expense) getItems().getRowData();
+        expense = (Expense) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getFacade().edit(expense);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ExpenseUpdated"));
             return "View";
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class ExpenseController implements Serializable {
     }
 
     public String destroy() {
-        current = (Expense) getItems().getRowData();
+        expense = (Expense) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -129,7 +129,7 @@ public class ExpenseController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getFacade().remove(expense);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ExpenseDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -147,7 +147,7 @@ public class ExpenseController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            expense = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 

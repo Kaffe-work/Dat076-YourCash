@@ -20,7 +20,7 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class AppuserController implements Serializable {
 
-    private Appuser current;
+    private Appuser user;
     private DataModel items = null;
     @EJB
     private com.mycompany.yourcashv2.AppuserFacade ejbFacade;
@@ -31,11 +31,11 @@ public class AppuserController implements Serializable {
     }
 
     public Appuser getSelected() {
-        if (current == null) {
-            current = new Appuser();
+        if (user == null) {
+            user = new Appuser();
             selectedItemIndex = -1;
         }
-        return current;
+        return user;
     }
 
     private AppuserFacade getFacade() {
@@ -66,20 +66,20 @@ public class AppuserController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Appuser) getItems().getRowData();
+        user = (Appuser) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Appuser();
+        user = new Appuser();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
+            getFacade().create(user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AppuserCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -89,14 +89,14 @@ public class AppuserController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Appuser) getItems().getRowData();
+        user = (Appuser) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getFacade().edit(user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AppuserUpdated"));
             return "View";
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class AppuserController implements Serializable {
     }
 
     public String destroy() {
-        current = (Appuser) getItems().getRowData();
+        user = (Appuser) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -129,7 +129,7 @@ public class AppuserController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getFacade().remove(user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AppuserDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -147,7 +147,7 @@ public class AppuserController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            user = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 

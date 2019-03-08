@@ -6,16 +6,19 @@
 package com.mycompany.yourcashv2;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Appuser.findByName", query = "SELECT a FROM Appuser a WHERE a.name = :name")
     , @NamedQuery(name = "Appuser.findByPasword", query = "SELECT a FROM Appuser a WHERE a.pasword = :pasword")})
 public class Appuser implements Serializable {
+
+    @ManyToMany(mappedBy = "appuserCollection")
+    private Collection<Expense> expenseCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -99,6 +105,15 @@ public class Appuser implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.yourcashv2.Appuser[ username=" + username + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Expense> getExpenseCollection() {
+        return expenseCollection;
+    }
+
+    public void setExpenseCollection(Collection<Expense> expenseCollection) {
+        this.expenseCollection = expenseCollection;
     }
     
 }
