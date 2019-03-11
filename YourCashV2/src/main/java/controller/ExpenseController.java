@@ -1,5 +1,7 @@
-package com.mycompany.yourcashv2;
+package controller;
 
+import facade.ExpenseFacade;
+import com.mycompany.yourcashv2.beans.Expense;
 import com.mycompany.yourcashv2.util.JsfUtil;
 import com.mycompany.yourcashv2.util.PaginationHelper;
 
@@ -16,29 +18,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@Named("appuserController")
+@Named("expenseController")
 @SessionScoped
-public class AppuserController implements Serializable {
+public class ExpenseController implements Serializable {
 
-    private Appuser user;
+    private Expense expense;
     private DataModel items = null;
     @EJB
-    private com.mycompany.yourcashv2.AppuserFacade ejbFacade;
+    private facade.ExpenseFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public AppuserController() {
+    public ExpenseController() {
     }
 
-    public Appuser getSelected() {
-        if (user == null) {
-            user = new Appuser();
+    public Expense getSelected() {
+        if (expense == null) {
+            expense = new Expense();
             selectedItemIndex = -1;
         }
-        return user;
+        return expense;
     }
 
-    private AppuserFacade getFacade() {
+    private ExpenseFacade getFacade() {
         return ejbFacade;
     }
 
@@ -66,21 +68,21 @@ public class AppuserController implements Serializable {
     }
 
     public String prepareView() {
-        user = (Appuser) getItems().getRowData();
+        expense = (Expense) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        user = new Appuser();
+        expense = new Expense();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
-            getFacade().create(user);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AppuserCreated"));
+            getFacade().create(expense);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ExpenseCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -89,15 +91,15 @@ public class AppuserController implements Serializable {
     }
 
     public String prepareEdit() {
-        user = (Appuser) getItems().getRowData();
+        expense = (Expense) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-            getFacade().edit(user);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AppuserUpdated"));
+            getFacade().edit(expense);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ExpenseUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -106,7 +108,7 @@ public class AppuserController implements Serializable {
     }
 
     public String destroy() {
-        user = (Appuser) getItems().getRowData();
+        expense = (Expense) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -129,8 +131,8 @@ public class AppuserController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(user);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AppuserDeleted"));
+            getFacade().remove(expense);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ExpenseDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -147,7 +149,7 @@ public class AppuserController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            user = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            expense = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 
@@ -186,21 +188,21 @@ public class AppuserController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Appuser getAppuser(java.lang.String id) {
+    public Expense getExpense(java.lang.String id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Appuser.class)
-    public static class AppuserControllerConverter implements Converter {
+    @FacesConverter(forClass = Expense.class)
+    public static class ExpenseControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AppuserController controller = (AppuserController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "appuserController");
-            return controller.getAppuser(getKey(value));
+            ExpenseController controller = (ExpenseController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "expenseController");
+            return controller.getExpense(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -220,11 +222,11 @@ public class AppuserController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Appuser) {
-                Appuser o = (Appuser) object;
-                return getStringKey(o.getUsername());
+            if (object instanceof Expense) {
+                Expense o = (Expense) object;
+                return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Appuser.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Expense.class.getName());
             }
         }
 
