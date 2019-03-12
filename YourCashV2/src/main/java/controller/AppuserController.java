@@ -193,6 +193,17 @@ public class AppuserController implements Serializable {
     public Appuser getAppuser(java.lang.String id) {
         return ejbFacade.find(id);
     }
+    
+    public String login(){
+        Appuser compareUser = getAppuser(user.getUsername());
+        if(compareUser.getPasword().equals(user.getPasword())){
+            return "/pages/Home";
+        }
+        else{
+            return "/appuser/Login";
+        }
+            
+    }
 
     @FacesConverter(forClass = Appuser.class)
     public static class AppuserControllerConverter implements Converter {
@@ -233,5 +244,7 @@ public class AppuserController implements Serializable {
         }
 
     }
+    
+    
    
 }

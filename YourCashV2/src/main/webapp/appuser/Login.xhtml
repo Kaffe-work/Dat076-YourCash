@@ -13,14 +13,10 @@
                     <h:outputLabel value="#{bundle.CreateAppuserLabel_username}" for="username" />
                     <h:inputText id="username" value="#{appuserController.selected.username}" title="#{bundle.CreateAppuserTitle_username}" required="true" requiredMessage="#{bundle.CreateAppuserRequiredMessage_username}"/>
                     <h:outputLabel value="Password" for="pasword" />
-                    <h:inputText id="pasword" value="#{appuserController.selected.pasword}" title="#{bundle.CreateAppuserTitle_pasword}" />
+                    <h:inputSecret id="pasword" value="#{appuserController.selected.pasword}" title="#{bundle.CreateAppuserTitle_pasword}" />
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{appuserController.create}" value="#{bundle.CreateAppuserSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{appuserController.prepareList}" value="#{bundle.CreateAppuserShowAllLink}" immediate="true"/>
-                <br />
+                <h:commandLink action="#{appuserController.login}" value="Login" />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateAppuserIndexLink}"/>
             </h:form>

@@ -25,6 +25,7 @@
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateExpenseLabel_category}" for="category" />
                     <h:inputText id="category" value="#{expenseController.selected.category}" title="#{bundle.CreateExpenseTitle_category}" />
+                    <!-- Use selectOneMenu instead of text input -->
                     <h:outputLabel value="#{bundle.CreateExpenseLabel_description}" for="description" />
                     <h:inputText id="description" value="#{expenseController.selected.description}" title="#{bundle.CreateExpenseTitle_description}" />
                 </h:panelGrid>
