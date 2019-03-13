@@ -1,3 +1,9 @@
+.body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -37,3 +43,27 @@ a{
   text-decoration: none;
 }
 
+
+
+
+.Post-content {
+    font-size: large;
+  }
+
+  .Post-feature{
+    text-align: justify;
+    padding: 6.0em;
+  }
+
+  .Post-feature-header {
+    background-color: #222;
+    padding: 2em;
+    color: lightgrey;
+}
+
+
+
+.Post-Button-register{ 
+  font-size: large;
+  text-align: center;
+}

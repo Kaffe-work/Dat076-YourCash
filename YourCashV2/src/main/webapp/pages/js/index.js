@@ -15,7 +15,7 @@ class App extends React.Component {
           <h4 className="App-contact">LOGO</h4>
           <h1 className="App-title">YourCash App</h1>
           <h3 className="App-subtitle">"Does thou even hoist your cash?"</h3>
-          <h4 className="App-sponsor">Register: Login:</h4>
+          <h4 className="App-sponsor" >Register: Login:</h4>
         </header>
         <h3 className="App-intro">Let us help you track your expenses!</h3>
         <p>Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe </p>
@@ -25,11 +25,13 @@ class App extends React.Component {
   }
 }
 
+
+
 class FeaturePost extends React.Component{
     render(){
       return(
-        <div className="FeaturePost">
-            <header className="FeaturePost-header">
+        <div className="Post-feature">
+            <header className="Post-feature-header">
                 <h1 className="FeaturePost-title">Why</h1>
                   <p className="Post-content">
                     If you need further convincing than the crocodile, here are the features that may sway your mind:
@@ -45,8 +47,8 @@ class FeaturePost extends React.Component{
             </header>
             <h2 className="FeaturePost-register">Intrigued? Register below!</h2>
             <header className="FeaturePost-header">
-            <div className ="knaussButton">
-              <button className ="RegisterButton-landing">CLICK THE HECK OUT OF ME TO START PARTYING</button>
+            <div className ="Post-Button-register">
+              <button className ="Post-Button-register">CLICK THE HECK OUT OF ME TO START PARTYING</button>
             </div>
             </header>
         </div>
