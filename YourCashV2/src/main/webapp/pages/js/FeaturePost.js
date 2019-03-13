@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import './BlogPost.css';
+//import React, { Component } from 'react';
+//import './BlogPost.css';
 
-class FeaturePost extends Component{
+$(document).ready(function(){
+    class FeaturePost extends Component{
     render(){
       return(
         <div className="FeaturePost">
@@ -29,6 +30,9 @@ class FeaturePost extends Component{
       );
     }
   }
+})
 
 
-export default FeaturePost;
+
+
+//export default FeaturePost;
