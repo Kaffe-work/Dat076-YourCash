@@ -24,6 +24,7 @@ import javax.persistence.Query;
 @SessionScoped
 public class AppuserController implements Serializable {
 
+    private Appuser loggedIn;
     private Appuser user;
     private DataModel items = null;
     @EJB
@@ -197,11 +198,15 @@ public class AppuserController implements Serializable {
     public String login(){
         Appuser compareUser = getAppuser(user.getUsername());
         if(compareUser.getPasword().equals(user.getPasword())){
+            System.out.println("Username:"+user.getUsername());
+            loggedIn = compareUser;
             return "/pages/Home";
         }
         else{
             return "/appuser/Login";
         }
+        
+        
             
     }
 

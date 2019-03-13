@@ -191,7 +191,7 @@ public class ExpenseController implements Serializable {
     public Expense getExpense(java.lang.String id) {
         return ejbFacade.find(id);
     }
-
+    
     @FacesConverter(forClass = Expense.class)
     public static class ExpenseControllerConverter implements Converter {
 

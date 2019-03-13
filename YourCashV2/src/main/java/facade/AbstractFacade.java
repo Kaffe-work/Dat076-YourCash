@@ -8,6 +8,7 @@ package facade;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.Predicate;
 
 /**
  *
@@ -43,6 +44,14 @@ public abstract class AbstractFacade<T> {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         return getEntityManager().createQuery(cq).getResultList();
+    }
+    
+    public List<T> findAllWithCriteria(String column, String criteria){
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        //Predicate pred = getEntityManager().getCriteriaBuilder().equal(exprsn, exprsn1);
+        //cq.where(exprsn)
+        return null;
     }
 
     public List<T> findRange(int[] range) {
