@@ -61,7 +61,7 @@ ReactDOM.render(
         <FeaturePost />
     </div>, 
     document.getElementById('root'));
-registerServiceWorker();
+
 
 
 
