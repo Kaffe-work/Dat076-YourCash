@@ -20,6 +20,9 @@ class App extends React.Component {
         <h3 className="App-intro">Let us help you track your expenses!</h3>
         <p>Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe </p>
         
+        
+          <button className ="Post-Button-register">Green</button> 
+        
       </div>
     );
   }
@@ -42,16 +45,22 @@ class FeaturePost extends React.Component{
                   </p>
                 <h3>Budget:</h3>
                   <p>
-                    Set a budget for yourself! Though, it's up to you to keep the budget...
+                    Set a budget for yourself! Th
+                    ough, it's up to you to keep the budget...
                   </p>
             </header>
+        
+        
             <h2 className="FeaturePost-register">Intrigued? Register below!</h2>
             <header className="FeaturePost-header">
-            <div className ="Post-Button-register">
-              <button className ="Post-Button-register">CLICK THE HECK OUT OF ME TO START PARTYING</button>
+            <div className="Post-feature-center">
+            <header className="Post-feature-header">
+              <button className ="Post-Button-register2">CLICK THE HECK OUT OF ME TO START PARTYING</button>
+              </header>
             </div>
             </header>
         </div>
+      
       );
     }
     
