@@ -15,7 +15,7 @@ class App extends React.Component {
              <div className="App">
         <header className="App-header">
         <div className="left-App-logo">
-        <img />
+        <img src={"http://s.cdpn.io/3/kiwi.svg"}/>
                 </div>
                 <div className ="App-titles">  
           <h1 className="App-title">YourCash App</h1>
@@ -54,6 +54,40 @@ class App extends React.Component {
   }
 }
 
+class Welcome extends React.Component{
+    render(){
+        return <h1>Lift the cash, {this.props.name}!</h1>
+    }
+}
+
+class AppUser extends React.Component {
+  render() {
+    return (
+             <div className="Appuser">
+        <header className="App-header">
+        <div className="left-App-logo">
+        <img/>
+                </div>
+                <div className ="App-titles">  
+            <Welcome name="105 iq godmode"/>
+          
+          <h3 className="App-subtitle">"CASHMAN"</h3>
+           </div>
+      
+                <div className="right">
+                
+                </div>
+        </header>
+        <h3 className="App-intro">Let us help you track your expenses!</h3>
+        <p>Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe </p>
+        
+               
+        
+      </div>
+    );
+  }
+}
+
 
 
 class FeaturePost extends React.Component{
@@ -71,8 +105,7 @@ class FeaturePost extends React.Component{
                   </p>
                 <h3>Budget:</h3>
                   <p>
-                    Set a budget for yourself! Th
-                    ough, it's up to you to keep the budget...
+                    Set a budget for yourself! Though, it's up to you to keep the budget...
                   </p>
             </header>
         
@@ -92,6 +125,9 @@ class FeaturePost extends React.Component{
     }
     
   }
+  
+ 
+  
   
   
   function RegButton(props) {
@@ -184,7 +220,7 @@ class Page extends React.Component {
       <div>
         
         <button onClick={this.handleToggleClick}>
-        {this.state.showWarning ? "<FeaturePost/>" : "<FeatureRegister/>"}
+        {this.state.showWarning ? "Click me to Register" : "Nevermind i dont want to"}
                 
         </button>
         {this.state.showWarning ? <div></div> : <FeatureRegister/>} 
