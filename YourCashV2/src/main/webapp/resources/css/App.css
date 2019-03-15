@@ -1,3 +1,9 @@
+.body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -37,3 +43,58 @@ a{
   text-decoration: none;
 }
 
+
+
+
+.Post-content {
+    font-size: large;
+  }
+
+  .Post-feature{
+    text-align: justify;
+    padding: 6.0em;
+  }
+
+  .Post-feature-header {
+    background-color: #222;
+    padding: 2em;
+    color: lightgrey;
+}
+
+.Post-feature-center{
+    text-align: center;
+}
+
+
+
+.Post-Button-register2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.Post-Button-register2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+.App-logo-login{
+    
+}
+
+.left{
+    float:left
+}
+.right{
+    float:right
+}

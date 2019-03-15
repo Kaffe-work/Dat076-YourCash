@@ -7,21 +7,47 @@
 
 
 
+
+    
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
+             <div className="App">
         <header className="App-header">
-          <h4 className="App-contact">LOGO</h4>
+        <div className="left-App-logo">
+        <img />
+                </div>
+                <div className ="App-titles">  
           <h1 className="App-title">YourCash App</h1>
+          
           <h3 className="App-subtitle">"Does thou even hoist your cash?"</h3>
-          <h4 className="App-sponsor" >Register: Login:</h4>
+           </div>
+      
+          <div className="right"><form>
+        <label>
+    Name:
+      <br>
+                </br>
+    <input type="text" name="name" />
+  </label>
+  <br>
+                </br>
+  
+                <label>
+    password:
+      <br>
+                </br>
+    <input type="password" name="password" />
+  </label>
+    <br>
+                </br>
+  <input type="submit" value="Submit" />
+</form></div>
         </header>
         <h3 className="App-intro">Let us help you track your expenses!</h3>
         <p>Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe </p>
         
-        
-          <button className ="Post-Button-register">Green</button> 
+               
         
       </div>
     );
@@ -55,7 +81,8 @@ class FeaturePost extends React.Component{
             <header className="FeaturePost-header">
             <div className="Post-feature-center">
             <header className="Post-feature-header">
-              <button className ="Post-Button-register2">CLICK THE HECK OUT OF ME TO START PARTYING</button>
+       
+                      <Page></Page>
               </header>
             </div>
             </header>
@@ -66,14 +93,157 @@ class FeaturePost extends React.Component{
     
   }
   
+  
+  function RegButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Login
+    </button>
+  );
+}
+
+class RegisterControl extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleRegisterClick = this.handleRegisterClick.bind(this);
+    this.state = {wantsToRegister: false};
+  }
+
+  handleRegisterClick() {
+      console.log("sdg")
+    this.setState({wantsToRegister: true});
+  }
+
+  render() {
+    const wantsToRegister = this.state.wantsToRegister;
+    let button;
+    
+    if (wantsToRegister) {
+      button = <RegButton onClick={this.handleRegisterClick} />;
+      
+    }
+
+    return (
+      <div>
+        <Greeting wantsToRegister={wantsToRegister} />
+        {button}
+      </div>
+    );
+  }
+}
+  
+  
+class RegisterButton extends React.Component {
+  // This syntax ensures `this` is bound within handleClick.
+  // Warning: this is *experimental* syntax.
+  handleClick = () => {
+      WarningBanner(true);
+    console.log('this is:', this);
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        Click me
+      </button>
+    );
+  }
+}
+ 
+ 
+ 
+  
+  
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
+  return (
+    <div className="warning">
+      Warning!
+    </div>
+  );
+}
+
+class Page extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showWarning: true};
+    this.handleToggleClick = this.handleToggleClick.bind(this);
+  }
+
+  handleToggleClick() {
+    this.setState(state => ({
+      showWarning: !state.showWarning
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        
+        <button onClick={this.handleToggleClick}>
+        {this.state.showWarning ? "<FeaturePost/>" : "<FeatureRegister/>"}
+                
+        </button>
+        {this.state.showWarning ? <div></div> : <FeatureRegister/>} 
+      </div>
+      
+    );
+  }
+}
+  
+  
+  class FeatureRegister extends React.Component{
+    render(){
+      return(
+        <div className="Post-feature">
+        <form>
+        <label>
+    Name:
+      <br>
+                </br>
+    <input type="text" name="name" />
+  </label>
+  <br>
+                </br>
+  
+                <label>
+    password:
+      <br>
+                </br>
+    <input type="password" name="password" />
+  </label>
+    <br>
+                </br>
+  <input type="submit" value="Submit" />
+</form>
+        </div>
+      
+      );
+    }
+    
+  }
+  
 ReactDOM.render(
     <div>
+        <WarningBanner warn={false}    />
         <App />
+     
         <FeaturePost />
+       
     </div>, 
     document.getElementById('root'));
+    
+    
+    
 
 
 
+ReactDOM.render(
+  <NameForm />,
+  document.getElementById('root')
+);
 
 
