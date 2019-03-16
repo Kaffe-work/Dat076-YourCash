@@ -4,9 +4,16 @@ import facade.AppuserFacade;
 import com.mycompany.yourcashv2.beans.Appuser;
 import com.mycompany.yourcashv2.util.JsfUtil;
 import com.mycompany.yourcashv2.util.PaginationHelper;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -18,6 +25,12 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
+import javax.json.JsonWriterFactory;
+import javax.json.stream.JsonGenerator;
 import javax.persistence.Query;
 
 @Named("appuserController")
@@ -31,9 +44,55 @@ public class AppuserController implements Serializable {
     private facade.AppuserFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private JsonObjectBuilder jOBuilder;
 
     public AppuserController() {
     }
+    
+    public String testJson(){
+        loggedIn = new Appuser();
+        loggedIn.setUsername("TestJson");
+        loggedIn.setName("Testimon");
+        loggedIn.setPasword("TestPas");
+        return toJSON(createJsonObject());
+    }
+    
+    public JsonObject createJsonObject(){
+        jOBuilder = Json.createObjectBuilder();
+        jOBuilder.add("userName", loggedIn.getUsername())
+                .add("name", loggedIn.getName())
+                .add("password", loggedIn.getPasword());
+        return jOBuilder.build();
+    }
+    
+    public String toJSON(JsonObject jObject){
+        
+        Map<String, Boolean> config = new HashMap<>();
+        
+        config.put(JsonGenerator.PRETTY_PRINTING, true);
+        
+        JsonWriterFactory writerFactory = Json.createWriterFactory(config);
+        
+        String jsonString;
+        Writer writer = new StringWriter(); 
+        writerFactory.createWriter(writer).write(jObject);
+        jsonString = writer.toString();
+        System.out.print(jsonString);
+        return jsonString;
+    }
+    
+    private Appuser fromJSON(String jsonString){
+        JsonReader reader = Json.createReader(new StringReader(jsonString));
+        JsonObject jsonObject = reader.readObject();
+        
+        Appuser user = new Appuser();
+        user.setUsername(jsonObject.getString("username"));
+        user.setUsername(jsonObject.getString("name"));
+        user.setUsername(jsonObject.getString("password"));
+        
+        return user;
+    }
+    
 
     public Appuser getSelected() {
         if (user == null) {
