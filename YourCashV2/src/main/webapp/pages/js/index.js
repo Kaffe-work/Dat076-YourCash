@@ -12,37 +12,41 @@
 class App extends React.Component {
   render() {
     return (
-             <div className="App">
-        <header className="App-header">
-        <div className="left-App-logo">
-        <img src={"http://s.cdpn.io/3/kiwi.svg"}/>
+        <div className="App">
+            <header className="App-header">
+        
+                <div className="row"> 
+                    <div className="column-left-App-logo">
+                        <img src={"goldlogo2.svg"} height="100%"/>
+                   </div>
+                <div className ="column-middle-App-titles">  
+                    <h1 className="App-title">YourCash App</h1>
+                    <h3 className="App-subtitle">"Does thou even hoist your cash?"</h3>
                 </div>
-                <div className ="App-titles">  
-          <h1 className="App-title">YourCash App</h1>
-          
-          <h3 className="App-subtitle">"Does thou even hoist your cash?"</h3>
-           </div>
       
-          <div className="right"><form>
-        <label>
+                <div className="column-right">
+                    <form>
+                    <label>
     Name:
       <br>
                 </br>
-    <input type="text" name="name" />
-  </label>
+                        <input type="text" name="name" />
+                    </label>
   <br>
                 </br>
   
-                <label>
+                    <label>
     password:
       <br>
                 </br>
     <input type="password" name="password" />
-  </label>
+                    </label>
     <br>
                 </br>
   <input type="submit" value="Submit" />
-</form></div>
+                    </form>
+                </div>
+                </div>
         </header>
         <h3 className="App-intro">Let us help you track your expenses!</h3>
         <p>Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe diem lol Carpe </p>
@@ -125,8 +129,61 @@ class FeaturePost extends React.Component{
     }
     
   }
-  
  
+ class UserExpense extends React.Component{
+    render(){
+      return(
+        <div className="Post-feature">
+        <FlavorForm ></FlavorForm>
+        </div>
+      
+      );
+    }
+    
+  }
+ 
+ 
+ 
+ 
+ 
+ class FlavorForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: 'coconut'};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('Your favorite flavor is: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Pick your favorite flavor:
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value="RENT">Grapefruit</option>
+            <option value="TRANSPORTATION">Lime</option>
+            <option value="FOOD">Coconut</option>
+            <option value="ENTERTAINMENT">Mango</option>
+            <option value="TRAVEL">Mango</option>
+            <option value="INSURANCE">Mango</option>
+            <option value="OTHER">Mango</option>
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
   
   
   
@@ -264,10 +321,10 @@ class Page extends React.Component {
   
 ReactDOM.render(
     <div>
-        <WarningBanner warn={false}    />
         <App />
      
         <FeaturePost />
+        <UserExpense/>
        
     </div>, 
     document.getElementById('root'));
@@ -281,5 +338,6 @@ ReactDOM.render(
   <NameForm />,
   document.getElementById('root')
 );
+
 
 
