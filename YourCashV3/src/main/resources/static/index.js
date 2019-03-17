@@ -20,7 +20,9 @@ class Global extends React.Component{
 
 }
 
-    
+// Our abstraction of the app was screwed by coding convetions
+// so unlike what the classname suggests this is the component representing
+// header for the landing page    
 class App extends React.Component {
 
   render() {
@@ -56,7 +58,7 @@ class App extends React.Component {
 
 
 
-
+// Displays the users name on the logged in header
 class Welcome extends React.Component{
 
 
@@ -116,6 +118,7 @@ function getCurrentUser() {
     return b;
 }
 
+// This is the component for the header when the user is logged in
 class AppUser extends React.Component {
 
   render() {
@@ -153,7 +156,9 @@ class AppUser extends React.Component {
 }
 
 
-
+// This component contains the list of features the user can read before logged in
+// This component even contain another component named page
+// Page is a registercontroller. If it is active, the user can fill in the form to register.
 class FeaturePost extends React.Component{
     render(){
       return(
@@ -190,6 +195,8 @@ class FeaturePost extends React.Component{
     
   }
  
+// This component is what encapsulates the component where the user can add payments
+// Page2, uses the same design patter as Page - thereof the name.
  class UserExpense extends React.Component{
     render(){
       return(
@@ -206,6 +213,7 @@ class FeaturePost extends React.Component{
   }
  
  
+// The login form component
  class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -277,6 +285,7 @@ class FeaturePost extends React.Component{
   }
 }
 
+// The register form that the component "page" hides until the user wants to register
  class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -362,6 +371,7 @@ class FeaturePost extends React.Component{
 }
  
  
+// The form from which expense categories the user can select from
  class ExpenseForm extends React.Component {
   constructor(props) {
     super(props);
@@ -464,6 +474,7 @@ class FeaturePost extends React.Component{
   
   
 
+// Controller class for handling state on whether the user wants to register
 class RegisterControl extends React.Component {
   constructor(props) {
     super(props);
@@ -472,7 +483,6 @@ class RegisterControl extends React.Component {
   }
 
   handleRegisterClick() {
-      console.log("sdg")
     this.setState({wantsToRegister: true});
   }
 
@@ -494,7 +504,8 @@ class RegisterControl extends React.Component {
   }
 }
   
-  
+
+// The register button
 class RegisterButton extends React.Component {
   // This syntax ensures `this` is bound within handleClick.
   // Warning: this is *experimental* syntax.
@@ -686,6 +697,7 @@ function getProducts() {
 
 }
 
+// warning if certain checks go wrong!!
 function WarningBanner(props) {
   if (!props.warn) {
     return null;
@@ -698,6 +710,7 @@ function WarningBanner(props) {
   );
 }
 
+// Control flow for hiding the register form and button
 class Page extends React.Component {
   constructor(props) {
     super(props);
@@ -727,6 +740,7 @@ class Page extends React.Component {
   }
 }
  
+// control flow for hiding the add expense options
  class Page2 extends React.Component {
   constructor(props) {
     super(props);
@@ -757,6 +771,7 @@ class Page extends React.Component {
     );
   }
 }
+
 
 class FlowControl extends React.Component{
     constructor(props){
