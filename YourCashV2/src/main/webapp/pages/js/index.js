@@ -155,7 +155,7 @@ class FeaturePost extends React.Component{
   }
 
   handleSubmit(event) {
-    alert('Your favorite username is: ' + this.state.username + " your favorite password is:" + this.state.password);
+    alert('Your blyat username is: ' + this.state.username + " your blyat password is:" + this.state.password);
     event.preventDefault();
   }
 
@@ -177,9 +177,10 @@ class FeaturePost extends React.Component{
  class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {username: "", password:""};
+    this.state = {username: "", name:"", password:""};
 
     this.handleUsername = this.handleUsername.bind(this);
+    this.handleName = this.handleName.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -188,12 +189,16 @@ class FeaturePost extends React.Component{
     this.setState({username: event.target.value});
   }
   
+  handleName(event) {
+    this.setState({name: event.target.value});
+  }
+  
   handlePassword(event) { 
     this.setState({password: event.target.value});
   }
 
   handleSubmit(event) {
-    alert('Your wanted username is: ' + this.state.username + " your wanted password is:" + this.state.password);
+    alert('Hello, ' + this.state.name + ': Your wanted username is: ' + this.state.username + " your wanted password is:" + this.state.password);
     event.preventDefault();
   }
 
@@ -202,6 +207,10 @@ class FeaturePost extends React.Component{
       <form onSubmit={this.handleSubmit}>
           USE A NAME <br></br>
         <input type="text" onChange={this.handleUsername} />
+        <br></br>
+        
+       NAME ??<br></br>
+         <input type="text" onChange={this.handleName} />
         <br></br>
         PASS A WORD:<br></br>
           <input type="password" onChange={this.handlePassword}/>
@@ -385,7 +394,8 @@ class ProductTable extends React.Component {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Price</th>
+            <th>Cost</th>
+            <th>Time</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -460,12 +470,12 @@ class FilterableProductTable extends React.Component {
 
 //this is temp untill we get backend input
 const PRODUCTS = [
-  {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
-  {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
-  {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
-  {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
-  {category: 'sad', price: '$399.99', stocked: false, name: 'iPhone 5'},
-  {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
+  {category: 'Sporting Goods', price: '$49.99',  name: 'Football'},
+  {category: 'Sporting Goods', price: '$9.99', name: 'Baseball'},
+  {category: 'Sporting Goods', price: '$29.99', name: 'Basketball'},
+  {category: 'Electronics', price: '$99.99', name: 'iPod Touch'},
+  {category: 'sad', price: '$399.99', name: 'iPhone 5'},
+  {category: 'Electronics', price: '$199.99',name: 'Nexus 7'}
 ];
   
   
