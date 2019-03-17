@@ -14,17 +14,19 @@ class MyComponent extends React.Component{
         this.state = {
             error: null,
             isLoaded: false,
-            user: null
+            users: null
         };
     }
     
     componentDidMount(){
-        fetch("url")
+        fetch("http://localhost:8080/YourCashV2/faces/UserServlet", {
+            method: 'GET'
+        })
                 .then(res => res.json())
                 .then((result)=>{
                     this.setState({
                         isLoaded: true,
-                        user: result.user
+                        users: result.users
                 
                     });
         },
@@ -38,7 +40,7 @@ class MyComponent extends React.Component{
     }
     
     render(){
-        const{ error, isLoaded, user} = this.state;
+        const{ error, isLoaded, users} = this.state;
         if(error){
             return <div>Error: {error.message}</div>;
             
@@ -46,11 +48,16 @@ class MyComponent extends React.Component{
             return <div>Loading...</div>;
         }else{
             return(<ul>
-            {user.map(item => (<li key={item.name}>
-                    {item.username} {item.password}
+            {users.map(item => (<li key={item.username}>
+                    {item.name} {item.password}
                     </li>))}
                     </ul>
                     );
         }
     }
 }
+
+ReactDOM.render(
+  <MyComponent />,
+  document.getElementById('root')
+);

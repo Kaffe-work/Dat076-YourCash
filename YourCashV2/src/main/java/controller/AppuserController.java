@@ -12,7 +12,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -26,6 +28,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
@@ -45,24 +48,44 @@ public class AppuserController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private JsonObjectBuilder jOBuilder;
+    private JsonArrayBuilder jArrBuilder;
 
     public AppuserController() {
     }
     
     public String testJson(){
         loggedIn = new Appuser();
-        loggedIn.setUsername("TestJson");
-        loggedIn.setName("Testimon");
-        loggedIn.setPasword("TestPas");
+        //loggedIn.setUsername("TestJson");
+        //loggedIn.setName("Testimon");
+        //loggedIn.setPasword("TestPas");
+        loggedIn = ejbFacade.find("g");
         return toJSON(createJsonObject());
     }
     
+    public String testJsonArray(){
+        List<Appuser> users;
+        users = ejbFacade.findAll();
+        return (toJSON(createJSONArray(users)));
+        
+    }
+   
+    
+    
     public JsonObject createJsonObject(){
         jOBuilder = Json.createObjectBuilder();
-        jOBuilder.add("userName", loggedIn.getUsername())
+        jOBuilder.add("username", loggedIn.getUsername())
                 .add("name", loggedIn.getName())
                 .add("password", loggedIn.getPasword());
         return jOBuilder.build();
+        
+    }
+    
+    public JsonObjectBuilder getJObject(Appuser user){
+        jOBuilder = Json.createObjectBuilder();
+        jOBuilder.add("username", user.getUsername())
+                .add("name", user.getName())
+                .add("password", user.getPasword());
+        return jOBuilder;
     }
     
     public String toJSON(JsonObject jObject){
@@ -81,6 +104,8 @@ public class AppuserController implements Serializable {
         return jsonString;
     }
     
+    
+    
     private Appuser fromJSON(String jsonString){
         JsonReader reader = Json.createReader(new StringReader(jsonString));
         JsonObject jsonObject = reader.readObject();
@@ -91,6 +116,20 @@ public class AppuserController implements Serializable {
         user.setUsername(jsonObject.getString("password"));
         
         return user;
+    }
+    
+    private JsonObject createJSONArray(List<Appuser> users){
+        
+        jArrBuilder = Json.createArrayBuilder();
+        
+        for(Appuser user: users){
+            jArrBuilder.add(getJObject(user));
+        }
+        
+        jOBuilder = Json.createObjectBuilder();
+        jOBuilder.add("users",jArrBuilder);
+        
+        return jOBuilder.build();
     }
     
 

@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import controller.AppuserController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UserServlet", urlPatterns = {"/UserServlet"})
 public class UserServlet extends HttpServlet {
+    private AppuserController aC = new AppuserController();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,7 +49,20 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        String usersString = aC.testJsonArray();
+        //String user = aC.testJson();
+        
+        
+        String str = "Actually works kinda";
+        
+        PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		out.print(usersString);
+		out.flush();
+        
+        //processRequest(request, response);
     }
 
     /**
