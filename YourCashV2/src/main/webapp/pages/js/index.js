@@ -33,7 +33,7 @@ class App extends React.Component {
                
         
       </div>
-    );
+    ); 
   }
 }
 
@@ -66,7 +66,7 @@ class AppUser extends React.Component {
                 <div className="column-right">
                     <form>
                     <div>
-                    <button className="Button-Logout">LOG OUT!!!!</button>
+                    <button className="smallbutton">Log Out</button>
                         </div>
                     </form>
                 </div>
@@ -162,13 +162,12 @@ class FeaturePost extends React.Component{
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-          USE A NAME:<br></br>
-        <input type="text" onChange={this.handleUsername} />
+          Login<br></br>
+        <input type="text" onChange={this.handleUsername} placeholder="Username" />
         <br></br>
-        PASS A WORD:<br></br>
-          <input type="password" onChange={this.handlePassword}/>
+          <input type="password" placeholder="password" onChange={this.handlePassword}/ >
           <br></br>
-        <input type="submit" value="Submit" />
+        <input className="smallbutton" type="submit" value="Submit" />
       </form>
     );
   }
@@ -205,17 +204,17 @@ class FeaturePost extends React.Component{
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-          USE A NAME <br></br>
+          Username <br></br>
         <input type="text" onChange={this.handleUsername} />
         <br></br>
         
-       NAME ??<br></br>
+       Display name<br></br>
          <input type="text" onChange={this.handleName} />
         <br></br>
-        PASS A WORD:<br></br>
+        Password<br></br>
           <input type="password" onChange={this.handlePassword}/>
           <br></br>
-        <input type="submit" value="Submit" />
+        <input className="smallbutton" type="submit" value="Submit" />
       </form>
     );
   }
@@ -550,7 +549,16 @@ class Page extends React.Component {
     );
   }
 }
- 
+
+function FlowControl(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+      return <div><App />;
+      <FeaturePost /> </div>;
+  }
+  return <div><AppUser />;
+        <UserExpense/> </div> ;
+}
   
   class FeatureRegister extends React.Component{
     render(){
@@ -564,13 +572,13 @@ class Page extends React.Component {
     
   }
   
+  
+ 
+  
 ReactDOM.render(
-    <div>
-        <App />
-        <FeaturePost />
-        <AppUser />
-        <UserExpense/>
-       
+    <div> 
+        <FlowControl isLoggedIn={false}/>
+      
     </div>, 
     document.getElementById('root'));
     

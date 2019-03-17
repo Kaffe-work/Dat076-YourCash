@@ -88,6 +88,29 @@ a{
   color: white;
 }
 
+.smallbutton {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  padding: 4px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.smallbutton:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+
+
 .App-logo-login{
     
 }
