@@ -339,9 +339,8 @@ class ProductRow extends React.Component {
     const product = this.props.product;
     const name = product.stocked ?
       product.name :
-      <span style={{color: 'red'}}>
-        {product.name}
-      </span>;
+        product.name
+      
 
     return (
       <tr>
@@ -355,7 +354,7 @@ class ProductRow extends React.Component {
 class ProductTable extends React.Component {
   render() {
     const filterText = this.props.filterText;
-    const inStockOnly = this.props.inStockOnly;
+    
 
     const rows = [];
     let lastCategory = null;
@@ -364,9 +363,7 @@ class ProductTable extends React.Component {
       if (product.name.indexOf(filterText) === -1) {
         return;
       }
-      if (inStockOnly && !product.stocked) {
-        return;
-      }
+      
       if (product.category !== lastCategory) {
         rows.push(
           <ProductCategoryRow
@@ -401,19 +398,17 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-    this.handleInStockChange = this.handleInStockChange.bind(this);
   }
   
   handleFilterTextChange(e) {
     this.props.onFilterTextChange(e.target.value);
   }
   
-  handleInStockChange(e) {
-    this.props.onInStockChange(e.target.checked);
-  }
+  
   
   render() {
     return (
+  
       <form>
         <input
           type="text"
@@ -422,13 +417,7 @@ class SearchBar extends React.Component {
           onChange={this.handleFilterTextChange}
         />
         <p>
-          <input
-            type="checkbox"
-            checked={this.props.inStockOnly}
-            onChange={this.handleInStockChange}
-          />
-          {' '}
-          Only show products in stock
+          
         </p>
       </form>
     );
@@ -440,11 +429,9 @@ class FilterableProductTable extends React.Component {
     super(props);
     this.state = {
       filterText: '',
-      inStockOnly: false
     };
     
     this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-    this.handleInStockChange = this.handleInStockChange.bind(this);
   }
 
   handleFilterTextChange(filterText) {
@@ -453,25 +440,18 @@ class FilterableProductTable extends React.Component {
     });
   }
   
-  handleInStockChange(inStockOnly) {
-    this.setState({
-      inStockOnly: inStockOnly
-    })
-  }
+  
 
   render() {
     return (
       <div>
         <SearchBar
           filterText={this.state.filterText}
-          inStockOnly={this.state.inStockOnly}
           onFilterTextChange={this.handleFilterTextChange}
-          onInStockChange={this.handleInStockChange}
         />
         <ProductTable
           products={this.props.products}
           filterText={this.state.filterText}
-          inStockOnly={this.state.inStockOnly}
         />
       </div>
     );
@@ -517,11 +497,12 @@ class Page extends React.Component {
   render() {
     return (
       <div>
-        
-        <button onClick={this.handleToggleClick}>
+          
+        <button className="button" onClick={this.handleToggleClick}>
         {this.state.showWarning ? "Click me to Register" : "Nevermind i dont want to"}
                 
         </button>
+        
         {this.state.showWarning ? <div></div> : <FeatureRegister/>} 
       </div>
       
@@ -547,12 +528,13 @@ class Page extends React.Component {
             <div>
       <div>
         
-        <button onClick={this.handleToggleClick}>
-        {this.state.showWarning ? "Click me to Register" : "Nevermind i dont want to"}
+        <button className="button" onClick={this.handleToggleClick}>
+        {this.state.showWarning ? "Add another expense" : "Regret in heaven"}
                 
         </button>
         {this.state.showWarning ? <div></div> : <ExpenseForm/>} 
       </div>
+                <h1>Current expenses</h1>
       <FilterableProductTable products={PRODUCTS} />
               </div>
     );

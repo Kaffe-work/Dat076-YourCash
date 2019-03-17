@@ -67,7 +67,7 @@ a{
 
 
 
-.Post-Button-register2 {
+.button {
   background-color: white; 
   color: black; 
   border: 2px solid #008CBA;
@@ -83,7 +83,7 @@ a{
   cursor: pointer;
 }
 
-.Post-Button-register2:hover {
+.button:hover {
   background-color: #008CBA;
   color: white;
 }
